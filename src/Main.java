@@ -1,4 +1,4 @@
-public class Song {
+class Song {
     private String title;
     private int duration; // seconds
 
@@ -27,7 +27,8 @@ public class Song {
         System.out.println("Playing song: " + title);
     }
 }
-public class Artist {
+
+class Artist {
     private String name;
     private int age;
 
@@ -56,7 +57,8 @@ public class Artist {
         System.out.println("Artist: " + name + ", Age: " + age);
     }
 }
-public class Playlist {
+
+class Playlist {
     private String playlistName;
     private Song song;
 
@@ -86,6 +88,7 @@ public class Playlist {
         System.out.println("Song: " + song.getTitle());
     }
 }
+
 public class Main {
     public static void main(String[] args) {
 
@@ -101,7 +104,6 @@ public class Main {
         artist.showArtist();
         playlist1.showPlaylist();
 
-        // Comparing objects
         if (song1.getDuration() > song2.getDuration()) {
             System.out.println(song1.getTitle() + " is longer than " + song2.getTitle());
         } else {
@@ -109,3 +111,4 @@ public class Main {
         }
     }
 }
+
