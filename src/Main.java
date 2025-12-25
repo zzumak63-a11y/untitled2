@@ -74,7 +74,7 @@ class Playlist {
 public class Main {
     public static void main(String[] args) {
         Song song1 = new Song("Shape of You", 240);
-        Song song2 = new Song("Believer", 210);
+        Song song2 = new Song("Believer", 211);
         Artist artist = new Artist("Ed Sheeran", 32);
         Playlist playlist1 = new Playlist("My Favorites", song1);
         Playlist playlist2 = new Playlist("My Favorites", song2);
