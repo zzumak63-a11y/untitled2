@@ -15,7 +15,6 @@ public class Main {
             ps.setString(1, "Coldplay");
             ps.setString(2, "USA");
             ps.executeUpdate();
-
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM artist");
             while (rs.next()) {
