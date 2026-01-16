@@ -1,31 +1,42 @@
+import java.sql.*;
 public class Main {
     public static void main(String[] args) {
-        // Create Songs
-        Song song1 = new Song("Shape of You", "Pop", 240);
-        Song song2 = new Song("Blinding Lights", "R&B", 200);
-        Song song3 = new Song("Levitating", "Pop", 220);
+        try (Connection conn = DriverManager.getConnection(
+                "jdbc:postgresql://localhost:5432/postgres",
+                "postgres",
+                "0000")) {
 
-        // Create Artist
-        Artist artist = new Artist("Ed Sheeran", "Pop");
+            PreparedStatement ps = conn.prepareStatement(
+                    "INSERT INTO artist (name, country) VALUES (?, ?)");
+            ps.setString(1, "Bonapart");
+            ps.setString(2, "Kazakhstan");
+            ps.executeUpdate();
 
-        // Create Playlist
-        Playlist playlist = new Playlist("My Favorite Playlist");
-        playlist.addSong(song1);
-        playlist.addSong(song2);
-        playlist.addSong(song3);
+            ps.setString(1, "Coldplay");
+            ps.setString(2, "USA");
+            ps.executeUpdate();
 
-        // Display Playlist Details
-        System.out.println(playlist);
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM artist");
+            while (rs.next()) {
+                System.out.println(rs.getInt("id") + " " +
+                        rs.getString("name") + " " +
+                        rs.getString("country"));
+            }
 
-        // Display Artist and Song Details
-        System.out.println(artist);
-        System.out.println(song1);
+            ps = conn.prepareStatement("UPDATE artist SET country=? WHERE name=?");
+            ps.setString(1, "Russia");
+            ps.setString(2, "Bonapart");
+            ps.executeUpdate();
 
-        // Check if a song is in the playlist
-        System.out.println("Is 'Shape of You' in the playlist? " + playlist.getSongs().contains(song1));
+            ps = conn.prepareStatement("DELETE FROM artist WHERE name=?");
+            ps.setString(1, "Coldplay");
+            ps.executeUpdate();
 
-        // Remove a song and display the playlist again
-        playlist.removeSong(song2);
-        System.out.println("Updated Playlist: " + playlist);
+            System.out.println("CRUD operations done!");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
